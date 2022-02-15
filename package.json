@@ -1,0 +1,20 @@
+{
+  "name": "backend-videofavoriteslist",
+  "version": "1.0.0",
+  "description": "backend server app for My Favorite Movies LIST APP to fascilitate receiving frontend requests, API calls to TMDB and mongoDB/ATLAS and serve the formatted response back to the frontend/react SPA",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.26.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15"
+  }
+}
