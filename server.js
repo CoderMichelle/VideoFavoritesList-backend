@@ -7,25 +7,21 @@ const cors = require('cors');
 const axios = require('axios');
 const mongoose = require('mongoose');
 
+const errorHandler = require('./modules/404.js');
+const proof = require('./modules/proof.js');
+
 const PORT = process.env.PORT || 3001;
 
 // app.use is global middleware
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  console.log(
-    'we are up and running on slash / route and hello from the server ====== proof of life'
-  );
-  res.status(200).send('proof of life - hello from the server');
-});
+app.get('/', proof);
 
 
 app.get('/movies', getMovies);
 
-app.get('/*', (req, res) => {
-  res.status(404).send('could not find that route');
-});
+app.get('*', errorHandler);
 
 async function getMovies(req, res) {
   // const query = req.query;
