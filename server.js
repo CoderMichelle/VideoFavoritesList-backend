@@ -5,11 +5,13 @@ const app = express();
 require('dotenv').config();
 const cors = require('cors');
 const axios = require('axios');
+const mongoose = require('mongoose');
 
 const PORT = process.env.PORT || 3001;
 
 // app.use is global middleware
 app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res) => {
   console.log(
@@ -74,6 +76,20 @@ class Movie {
   }
 }
 
-app.listen(PORT, () =>
-  console.log(`listening in on port https://localhost:${PORT}`)
-);
+mongoose
+  .connect(process.env.MONGO_CONNECTION_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log('connected to the database =========>>>>>>>>>>>>>>>>>>>');
+    app.listen(PORT, () =>
+      console.log(`listening in on port https://localhost:${PORT}`)
+    );
+  })
+  .catch(error => {
+    console.log(
+      `There was an error connecting to db and then server: ${error}`
+    );
+  });
+
