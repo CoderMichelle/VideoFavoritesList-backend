@@ -14,6 +14,11 @@ const proof = require('./modules/proof.js');
 const clear = require('./modules/clear.js');
 
 const getMoviesFromAPI = require('./modules/getMoviesFromAPI.js');
+const getAllDBMovies = require('./modules/getAllDBMovies.js');
+const getOneMovie = require('./modules/getOneMovie.js');
+const saveMovie = require('./modules/saveMovie.js');
+const updateMovie = require('./modules/updateMovie.js');
+const deleteMovie = require('./modules/deleteMovie.js');
 
 const PORT = process.env.PORT || 3001;
 
@@ -25,6 +30,12 @@ app.get('/', proof);
 app.get('/login-test', testLogin);
 app.get('/seed', seed);
 app.get('/clear', clear);
+
+app.get('/dbmovies/:id', getOneMovie);
+app.get('/dbmovies', getAllDBMovies);
+app.post('/dbmovies', saveMovie);
+app.put('/dbmovies/:id', updateMovie);
+app.delete('/dbmovies/:id', deleteMovie);
 
 
 app.get('/movies', getMoviesFromAPI);
