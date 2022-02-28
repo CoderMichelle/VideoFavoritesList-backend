@@ -13,22 +13,24 @@ async function getOneMovie(req, res) {
         'getOneMovie route hit and here is token =======>>>>>>>>',
         token
       );
-
-      await jwt.verify(token, getKey, {}, async function (err, user) {
-        if (err) {
-          res.status(500).send('invalid token');
-        } else if (!id) {
-          res
-            .status(500)
-            .send(
-              'we did not receive the ID of the movie you are trying to access'
-            );
-        } else {
-          // here goes the code to delete the movie
-          let retrievedMovie = await MovieModel.find({ id });
-          res.status(200).send(retrievedMovie);
-        }
-      });
+      // =========================================================================
+      //temporarily disableing authorization because of JWT heroku problems !!!!
+      // await jwt.verify(token, getKey, {}, async function (err, user) {
+      //   if (err) {
+      //     res.status(500).send('invalid token');
+      //   } else if (!id) {
+      //     res
+      //       .status(500)
+      //       .send(
+      //         'we did not receive the ID of the movie you are trying to access'
+      //       );
+      //   } else {
+      // here goes the code to delete the movie
+      let retrievedMovie = await MovieModel.find({ id });
+      res.status(200).send(retrievedMovie);
+      //   }
+      // });
+      //===========================================================================
     } else {
       res
         .status(500)

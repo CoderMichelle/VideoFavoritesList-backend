@@ -11,19 +11,22 @@ async function getAllDBMovies(req, res) {
       console.log(
         'getAllDBMovies route hit =======================================>>>>>>>>'
       );
-      await jwt.verify(token, getKey, {}, function (err, user) {
+      // =========================================================================
+      //temporarily disableing authorization because of JWT heroku problems !!!!
+      // await jwt.verify(token, getKey, {}, function (err, user) {
+      //   if (err) {
+      //     res.status(500).send(`invalid token ${err}`);
+      //   } else {
+      MovieModel.find({}, (err, dataBaseResults) => {
         if (err) {
-          res.status(500).send(`invalid token ${err}`);
+          res.status(500).send(`can't access db ${err}`);
         } else {
-          MovieModel.find({}, (err, dataBaseResults) => {
-            if (err) {
-              res.status(500).send(`can't access db ${err}`);
-            } else {
-              res.status(200).json(dataBaseResults);
-            }
-          });
+          res.status(200).json(dataBaseResults);
         }
       });
+      // }
+      // });
+      //===========================================================================
     } else {
       res
         .status(500)
