@@ -8,39 +8,42 @@ async function saveMovie(req, res) {
   try {
     if (req.headers.authorization) {
       const token = req.headers.authorization.split(' ')[1];
-      await jwt.verify(token, getKey, {}, async function (err, user) {
-        if (err) {
-          res.status(500).send(`invalid token error: ${err}`);
-        } else {
-          console.log('req.body from saveMovie/post: ', req.body);
-          let {
-            title,
-            overview,
-            average_votes,
-            total_votes,
-            image_url,
-            popularity,
-            released_on,
-            tmdbID,
-            comment,
-            email,
-          } = req.body;
-          let newMovieSaved = new MovieModel({
-            title,
-            overview,
-            average_votes,
-            total_votes,
-            image_url,
-            popularity,
-            released_on,
-            tmdbID,
-            comment,
-            email,
-          });
-          let responseFromDB = await newMovieSaved.save();
-          res.status(200).send(responseFromDB);
-        }
+      // =========================================================================
+      //temporarily disableing authorization because of JWT heroku problems !!!!
+      // await jwt.verify(token, getKey, {}, async function (err, user) {
+      //   if (err) {
+      //     res.status(500).send(`invalid token error: ${err}`);
+      //   } else {
+      console.log('req.body from saveMovie/post: ', req.body);
+      let {
+        title,
+        overview,
+        average_votes,
+        total_votes,
+        image_url,
+        popularity,
+        released_on,
+        tmdbID,
+        comment,
+        email,
+      } = req.body;
+      let newMovieSaved = new MovieModel({
+        title,
+        overview,
+        average_votes,
+        total_votes,
+        image_url,
+        popularity,
+        released_on,
+        tmdbID,
+        comment,
+        email,
       });
+      let responseFromDB = await newMovieSaved.save();
+      res.status(200).send(responseFromDB);
+      //   }
+      // });
+      //===========================================================================
     } else {
       res
         .status(500)
