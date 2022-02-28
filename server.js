@@ -3,7 +3,15 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
+
 const cors = require('cors');
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,            //access-control-allow-credentials:true
+  optionSuccessStatus: 200
+};
+app.use(cors(corsOptions));
+
 const axios = require('axios');
 const mongoose = require('mongoose');
 
@@ -22,8 +30,6 @@ const deleteMovie = require('./modules/deleteMovie.js');
 
 const PORT = process.env.PORT || 3001;
 
-// app.use is global middleware
-app.use(cors());
 app.use(express.json());
 
 app.get('/', proof);
